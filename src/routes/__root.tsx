@@ -87,6 +87,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Psic. Violeta Guillén" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
+      { name: "twitter:title", content: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
+      { name: "description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
+      { property: "og:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
+      { name: "twitter:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/274927c9-5957-42bc-a8c9-42408c9b3fee/id-preview-e3a4c542--2c827035-f133-4fa7-bb14-ade0d68d4a00.lovable.app-1780549892521.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/274927c9-5957-42bc-a8c9-42408c9b3fee/id-preview-e3a4c542--2c827035-f133-4fa7-bb14-ade0d68d4a00.lovable.app-1780549892521.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

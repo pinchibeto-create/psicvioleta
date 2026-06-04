@@ -9,8 +9,57 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TalleresRouteImport } from './routes/talleres'
+import { Route as SobreMiRouteImport } from './routes/sobre-mi'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RecursosRouteImport } from './routes/recursos'
+import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as EvaluacionesNeuropsicologicasRouteImport } from './routes/evaluaciones-neuropsicologicas'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TalleresRoute = TalleresRouteImport.update({
+  id: '/talleres',
+  path: '/talleres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreMiRoute = SobreMiRouteImport.update({
+  id: '/sobre-mi',
+  path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecursosRoute = RecursosRouteImport.update({
+  id: '/recursos',
+  path: '/recursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PsicoterapiaRoute = PsicoterapiaRouteImport.update({
+  id: '/psicoterapia',
+  path: '/psicoterapia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvaluacionesNeuropsicologicasRoute =
+  EvaluacionesNeuropsicologicasRouteImport.update({
+    id: '/evaluaciones-neuropsicologicas',
+    path: '/evaluaciones-neuropsicologicas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +68,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/evaluaciones-neuropsicologicas': typeof EvaluacionesNeuropsicologicasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/talleres': typeof TalleresRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/evaluaciones-neuropsicologicas': typeof EvaluacionesNeuropsicologicasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/talleres': typeof TalleresRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/evaluaciones-neuropsicologicas': typeof EvaluacionesNeuropsicologicasRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/talleres': typeof TalleresRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contacto'
+    | '/evaluaciones-neuropsicologicas'
+    | '/privacidad'
+    | '/psicoterapia'
+    | '/recursos'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/talleres'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contacto'
+    | '/evaluaciones-neuropsicologicas'
+    | '/privacidad'
+    | '/psicoterapia'
+    | '/recursos'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/talleres'
+  id:
+    | '__root__'
+    | '/'
+    | '/contacto'
+    | '/evaluaciones-neuropsicologicas'
+    | '/privacidad'
+    | '/psicoterapia'
+    | '/recursos'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/talleres'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactoRoute: typeof ContactoRoute
+  EvaluacionesNeuropsicologicasRoute: typeof EvaluacionesNeuropsicologicasRoute
+  PrivacidadRoute: typeof PrivacidadRoute
+  PsicoterapiaRoute: typeof PsicoterapiaRoute
+  RecursosRoute: typeof RecursosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreMiRoute: typeof SobreMiRoute
+  TalleresRoute: typeof TalleresRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/talleres': {
+      id: '/talleres'
+      path: '/talleres'
+      fullPath: '/talleres'
+      preLoaderRoute: typeof TalleresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-mi': {
+      id: '/sobre-mi'
+      path: '/sobre-mi'
+      fullPath: '/sobre-mi'
+      preLoaderRoute: typeof SobreMiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recursos': {
+      id: '/recursos'
+      path: '/recursos'
+      fullPath: '/recursos'
+      preLoaderRoute: typeof RecursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/psicoterapia': {
+      id: '/psicoterapia'
+      path: '/psicoterapia'
+      fullPath: '/psicoterapia'
+      preLoaderRoute: typeof PsicoterapiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evaluaciones-neuropsicologicas': {
+      id: '/evaluaciones-neuropsicologicas'
+      path: '/evaluaciones-neuropsicologicas'
+      fullPath: '/evaluaciones-neuropsicologicas'
+      preLoaderRoute: typeof EvaluacionesNeuropsicologicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +218,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactoRoute: ContactoRoute,
+  EvaluacionesNeuropsicologicasRoute: EvaluacionesNeuropsicologicasRoute,
+  PrivacidadRoute: PrivacidadRoute,
+  PsicoterapiaRoute: PsicoterapiaRoute,
+  RecursosRoute: RecursosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreMiRoute: SobreMiRoute,
+  TalleresRoute: TalleresRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TalleresRouteImport } from './routes/talleres'
 import { Route as SobreMiRouteImport } from './routes/sobre-mi'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RecursosRouteImport } from './routes/recursos'
 import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
@@ -26,6 +27,11 @@ const TalleresRoute = TalleresRouteImport.update({
 const SobreMiRoute = SobreMiRouteImport.update({
   id: '/sobre-mi',
   path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RecursosRoute = RecursosRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/privacidad': typeof PrivacidadRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
 }
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/privacidad': typeof PrivacidadRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
 }
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/privacidad': typeof PrivacidadRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/recursos': typeof RecursosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
 }
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/psicoterapia'
     | '/recursos'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
   fileRoutesByTo: FileRoutesByTo
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/psicoterapia'
     | '/recursos'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
   id:
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/psicoterapia'
     | '/recursos'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
   fileRoutesById: FileRoutesById
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   PrivacidadRoute: typeof PrivacidadRoute
   PsicoterapiaRoute: typeof PsicoterapiaRoute
   RecursosRoute: typeof RecursosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreMiRoute: typeof SobreMiRoute
   TalleresRoute: typeof TalleresRoute
 }
@@ -149,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/sobre-mi'
       fullPath: '/sobre-mi'
       preLoaderRoute: typeof SobreMiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recursos': {
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacidadRoute: PrivacidadRoute,
   PsicoterapiaRoute: PsicoterapiaRoute,
   RecursosRoute: RecursosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreMiRoute: SobreMiRoute,
   TalleresRoute: TalleresRoute,
 }

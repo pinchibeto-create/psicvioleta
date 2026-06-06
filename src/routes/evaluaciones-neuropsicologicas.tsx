@@ -44,7 +44,7 @@ function Evaluaciones() {
       >
         <Link
           to="/contacto"
-          className="inline-block rounded-full bg-brand-deep px-8 py-4 font-medium text-brand-cream transition-all hover:-translate-y-1 hover:shadow-xl"
+          className="inline-block rounded-full bg-brand-salvia px-8 py-4 font-medium text-brand-deep transition-all hover:-translate-y-1 hover:shadow-xl"
         >
           Solicitar información
         </Link>

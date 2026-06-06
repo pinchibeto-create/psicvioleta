@@ -48,14 +48,14 @@ function Header() {
           ))}
           <Link
             to="/contacto"
-            className="rounded-full bg-brand-deep px-5 py-2 text-brand-cream transition-all hover:bg-brand-sage"
+            className="rounded-full bg-brand-salvia px-5 py-2 text-brand-deep transition-all hover:bg-brand-accent"
           >
             Agendar
           </Link>
         </div>
         <Link
           to="/contacto"
-          className="rounded-full bg-brand-deep px-4 py-2 text-xs font-medium uppercase tracking-widest text-brand-cream lg:hidden"
+          className="rounded-full bg-brand-salvia px-4 py-2 text-xs font-medium uppercase tracking-widest text-brand-cream lg:hidden"
         >
           Agendar
         </Link>

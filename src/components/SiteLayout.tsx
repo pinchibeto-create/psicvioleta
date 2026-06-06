@@ -11,7 +11,7 @@ const navLinks = [
 ] as const;
 
 const WHATSAPP_URL =
-  "https://wa.me/525500000000?text=Hola%20Violeta%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20una%20primera%20consulta.";
+  "https://wa.me/529612331769?text=Hola%20Violeta%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20una%20primera%20consulta.";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (

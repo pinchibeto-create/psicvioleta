@@ -156,13 +156,15 @@ function Index() {
               una mirada sensible y no capacitista.
             </p>
           </div>
-          <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
             {temas.map((t) => (
               <li
                 key={t}
                 className="rounded-2xl bg-background p-6 ring-1 ring-brand-deep/5 transition-all hover:-translate-y-1 hover:ring-brand-accent"
               >
-                <span className="font-serif text-lg text-brand-deep">{t}</span>
+                <span className="font-serif text-base leading-snug text-brand-deep break-words hyphens-auto sm:text-lg">
+                  {t}
+                </span>
               </li>
             ))}
           </ul>

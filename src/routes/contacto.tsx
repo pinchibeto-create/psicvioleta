@@ -159,7 +159,7 @@ function Contacto() {
                 </Field>
                 <button
                   type="submit"
-                  className="md:col-span-2 rounded-full bg-brand-deep py-4 text-sm font-bold uppercase tracking-widest text-brand-cream transition-all hover:bg-brand-sage"
+                  className="md:col-span-2 rounded-full bg-brand-salvia py-4 text-sm font-bold uppercase tracking-widest text-brand-deep transition-all hover:bg-brand-accent"
                 >
                   Enviar solicitud
                 </button>

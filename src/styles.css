@@ -47,12 +47,13 @@
 :root {
   --radius: 1rem;
 
-  /* Brand palette (chosen direction v1) */
-  --brand-deep: oklch(0.48 0.045 300);     /* #5D5470 lavender deep */
-  --brand-soft: oklch(0.92 0.025 295);     /* #E9E4F5 soft lavender */
-  --brand-accent: oklch(0.82 0.045 15);    /* #E5B7B7 dusty rose */
-  --brand-sage: oklch(0.62 0.04 145);      /* #829481 sage green */
-  --brand-cream: oklch(0.985 0.005 90);    /* #FAF9F6 cream */
+  /* Brand palette — salvia / beige / café (natural, cálida, terapéutica) */
+  --brand-deep: oklch(0.40 0.035 55);      /* #6B4F3F café tierra — títulos */
+  --brand-soft: oklch(0.90 0.025 80);      /* #E8DCC8 beige arena — fondos secundarios */
+  --brand-accent: oklch(0.68 0.06 55);     /* #B08968 terracota suave — acentos cálidos */
+  --brand-sage: oklch(0.58 0.04 125);      /* #6F7D5C oliva grisáceo — texto secundario */
+  --brand-cream: oklch(0.96 0.015 85);     /* #F7F3EA blanco hueso — fondo general */
+  --brand-salvia: oklch(0.76 0.05 130);    /* #A3B18A verde salvia — botones, acentos */
 
   --background: var(--brand-cream);
   --foreground: var(--brand-deep);

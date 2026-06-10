@@ -5,15 +5,14 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import netlify from "@netlify/vite-plugin-tanstack-start";
 
-// Force-enable nitro with the Netlify preset so `vite build` on Netlify
-// produces a Netlify Functions SSR bundle instead of the default
-// Cloudflare-only output (which 404s on Netlify).
+// Keep Lovable's TanStack/React/Tailwind setup, and add only Netlify's
+// TanStack Start adapter so the build emits Netlify-compatible SSR output.
 export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  nitro: {
-    preset: "netlify",
-  },
+  nitro: false,
+  plugins: [netlify()],
 });

@@ -6,10 +6,14 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Force-enable nitro with the Netlify preset so `vite build` on Netlify
+// produces a Netlify Functions SSR bundle instead of the default
+// Cloudflare-only output (which 404s on Netlify).
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
+  },
+  nitro: {
+    preset: "netlify",
   },
 });

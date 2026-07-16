@@ -29,7 +29,6 @@ const temas = [
   "Ansiedad y estrés",
   "Autoestima",
   "Neurodivergencias",
-  "Imagen corporal y TCA",
   "Duelos y transiciones",
   "Identidad y género",
   "Depresión",

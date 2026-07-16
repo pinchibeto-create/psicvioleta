@@ -92,7 +92,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
       { property: "og:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
       { name: "twitter:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
-      { name: "twitter:image", content: "https://psicvioleta.lovable.app/opengraph-image" },
+      
 
     ],
     links: [

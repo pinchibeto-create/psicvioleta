@@ -9,44 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TalleresRouteImport } from './routes/talleres'
-import { Route as SobreMiRouteImport } from './routes/sobre-mi'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RecursosRouteImport } from './routes/recursos'
-import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
-import { Route as PrivacidadRouteImport } from './routes/privacidad'
-import { Route as EvaluacionesNeuropsicologicasRouteImport } from './routes/evaluaciones-neuropsicologicas'
-import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as EvaluacionesNeuropsicologicasRouteImport } from './routes/evaluaciones-neuropsicologicas'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
+import { Route as RecursosRouteImport } from './routes/recursos'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SobreMiRouteImport } from './routes/sobre-mi'
+import { Route as TalleresRouteImport } from './routes/talleres'
+import { Route as PanelIndexRouteImport } from './routes/panel/index'
+import { Route as PanelLoginRouteImport } from './routes/panel/login'
 
-const TalleresRoute = TalleresRouteImport.update({
-  id: '/talleres',
-  path: '/talleres',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SobreMiRoute = SobreMiRouteImport.update({
-  id: '/sobre-mi',
-  path: '/sobre-mi',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RecursosRoute = RecursosRouteImport.update({
-  id: '/recursos',
-  path: '/recursos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PsicoterapiaRoute = PsicoterapiaRouteImport.update({
-  id: '/psicoterapia',
-  path: '/psicoterapia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacidadRoute = PrivacidadRouteImport.update({
-  id: '/privacidad',
-  path: '/privacidad',
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EvaluacionesNeuropsicologicasRoute =
@@ -55,14 +37,44 @@ const EvaluacionesNeuropsicologicasRoute =
     path: '/evaluaciones-neuropsicologicas',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ContactoRoute = ContactoRouteImport.update({
-  id: '/contacto',
-  path: '/contacto',
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PsicoterapiaRoute = PsicoterapiaRouteImport.update({
+  id: '/psicoterapia',
+  path: '/psicoterapia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecursosRoute = RecursosRouteImport.update({
+  id: '/recursos',
+  path: '/recursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreMiRoute = SobreMiRouteImport.update({
+  id: '/sobre-mi',
+  path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalleresRoute = TalleresRouteImport.update({
+  id: '/talleres',
+  path: '/talleres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelIndexRoute = PanelIndexRouteImport.update({
+  id: '/panel/',
+  path: '/panel/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelLoginRoute = PanelLoginRouteImport.update({
+  id: '/panel/login',
+  path: '/panel/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -76,6 +88,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
+  '/panel/login': typeof PanelLoginRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -87,6 +101,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
+  '/panel/login': typeof PanelLoginRoute
+  '/panel': typeof PanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -99,6 +115,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/talleres': typeof TalleresRoute
+  '/panel/login': typeof PanelLoginRoute
+  '/panel/': typeof PanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -112,6 +130,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
+    | '/panel/login'
+    | '/panel/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -123,6 +143,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
+    | '/panel/login'
+    | '/panel'
   id:
     | '__root__'
     | '/'
@@ -134,6 +156,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sobre-mi'
     | '/talleres'
+    | '/panel/login'
+    | '/panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,57 +170,17 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreMiRoute: typeof SobreMiRoute
   TalleresRoute: typeof TalleresRoute
+  PanelLoginRoute: typeof PanelLoginRoute
+  PanelIndexRoute: typeof PanelIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/talleres': {
-      id: '/talleres'
-      path: '/talleres'
-      fullPath: '/talleres'
-      preLoaderRoute: typeof TalleresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sobre-mi': {
-      id: '/sobre-mi'
-      path: '/sobre-mi'
-      fullPath: '/sobre-mi'
-      preLoaderRoute: typeof SobreMiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/recursos': {
-      id: '/recursos'
-      path: '/recursos'
-      fullPath: '/recursos'
-      preLoaderRoute: typeof RecursosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/psicoterapia': {
-      id: '/psicoterapia'
-      path: '/psicoterapia'
-      fullPath: '/psicoterapia'
-      preLoaderRoute: typeof PsicoterapiaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacidad': {
-      id: '/privacidad'
-      path: '/privacidad'
-      fullPath: '/privacidad'
-      preLoaderRoute: typeof PrivacidadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/evaluaciones-neuropsicologicas': {
-      id: '/evaluaciones-neuropsicologicas'
-      path: '/evaluaciones-neuropsicologicas'
-      fullPath: '/evaluaciones-neuropsicologicas'
-      preLoaderRoute: typeof EvaluacionesNeuropsicologicasRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -206,11 +190,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/evaluaciones-neuropsicologicas': {
+      id: '/evaluaciones-neuropsicologicas'
+      path: '/evaluaciones-neuropsicologicas'
+      fullPath: '/evaluaciones-neuropsicologicas'
+      preLoaderRoute: typeof EvaluacionesNeuropsicologicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/psicoterapia': {
+      id: '/psicoterapia'
+      path: '/psicoterapia'
+      fullPath: '/psicoterapia'
+      preLoaderRoute: typeof PsicoterapiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recursos': {
+      id: '/recursos'
+      path: '/recursos'
+      fullPath: '/recursos'
+      preLoaderRoute: typeof RecursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-mi': {
+      id: '/sobre-mi'
+      path: '/sobre-mi'
+      fullPath: '/sobre-mi'
+      preLoaderRoute: typeof SobreMiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talleres': {
+      id: '/talleres'
+      path: '/talleres'
+      fullPath: '/talleres'
+      preLoaderRoute: typeof TalleresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel/': {
+      id: '/panel/'
+      path: '/panel'
+      fullPath: '/panel/'
+      preLoaderRoute: typeof PanelIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panel/login': {
+      id: '/panel/login'
+      path: '/panel/login'
+      fullPath: '/panel/login'
+      preLoaderRoute: typeof PanelLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -226,7 +266,19 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreMiRoute: SobreMiRoute,
   TalleresRoute: TalleresRoute,
+  PanelLoginRoute: PanelLoginRoute,
+  PanelIndexRoute: PanelIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

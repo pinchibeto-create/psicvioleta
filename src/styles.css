@@ -42,19 +42,19 @@
   --color-brand-sage: var(--brand-sage);
   --color-brand-cream: var(--brand-cream);
   --color-brand-salvia: var(--brand-salvia);
-  --color-whatsapp: #25D366;
+  --color-whatsapp: #25d366;
 }
 
 :root {
   --radius: 1rem;
 
   /* Brand palette — salvia / beige / café (natural, cálida, terapéutica) */
-  --brand-deep: oklch(0.40 0.035 55);      /* #6B4F3F café tierra — títulos */
-  --brand-soft: oklch(0.90 0.025 80);      /* #E8DCC8 beige arena — fondos secundarios */
-  --brand-accent: oklch(0.68 0.06 55);     /* #B08968 terracota suave — acentos cálidos */
-  --brand-sage: oklch(0.58 0.04 125);      /* #6F7D5C oliva grisáceo — texto secundario */
-  --brand-cream: oklch(0.96 0.015 85);     /* #F7F3EA blanco hueso — fondo general */
-  --brand-salvia: oklch(0.76 0.05 130);    /* #A3B18A verde salvia — botones, acentos */
+  --brand-deep: oklch(0.4 0.035 55); /* #6B4F3F café tierra — títulos */
+  --brand-soft: oklch(0.9 0.025 80); /* #E8DCC8 beige arena — fondos secundarios */
+  --brand-accent: oklch(0.68 0.06 55); /* #B08968 terracota suave — acentos cálidos */
+  --brand-sage: oklch(0.58 0.04 125); /* #6F7D5C oliva grisáceo — texto secundario */
+  --brand-cream: oklch(0.96 0.015 85); /* #F7F3EA blanco hueso — fondo general */
+  --brand-salvia: oklch(0.76 0.05 130); /* #A3B18A verde salvia — botones, acentos */
 
   --background: var(--brand-cream);
   --foreground: var(--brand-deep);
@@ -98,13 +98,49 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-serif); }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+  }
+}
+
+@layer components {
+  .panel-input {
+    width: 100%;
+    min-height: 46px;
+    border: 1px solid color-mix(in oklab, var(--brand-deep) 14%, transparent);
+    border-radius: 0.75rem;
+    background: white;
+    padding: 0.7rem 0.85rem;
+    color: var(--brand-deep);
+    font-size: 0.875rem;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .panel-input:focus {
+    outline: none;
+    border-color: var(--brand-deep);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-deep) 12%, transparent);
+  }
+
+  .panel-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.72;
+  }
 }

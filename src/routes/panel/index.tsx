@@ -339,7 +339,7 @@ function Citas({ citas, saving, onUpdate }: AppointmentListProps) {
   const filtered = citas
     .filter((cita) => filter === "todas" || cita.estado === filter)
     .filter((cita) =>
-      `${cita.paciente_nombre} ${cita.paciente_telefono} ${cita.paciente_email ?? ""}`
+      `${cita.paciente_nombre} ${cita.paciente_telefono}`
         .toLowerCase()
         .includes(search.toLowerCase()),
     )
@@ -350,7 +350,7 @@ function Citas({ citas, saving, onUpdate }: AppointmentListProps) {
       <PageHeading
         eyebrow="Historial y seguimiento"
         title="Todas las citas"
-        detail="Busca por nombre, teléfono o correo y modifica la información administrativa."
+        detail="Busca por nombre o teléfono y modifica la información administrativa."
       />
       <div className="mt-7 grid gap-3 rounded-2xl border border-brand-deep/10 bg-white p-4 sm:grid-cols-[1fr_auto]">
         <label className="relative">
@@ -402,10 +402,8 @@ function AppointmentCard({
   const [draft, setDraft] = useState({
     paciente_nombre: cita.paciente_nombre,
     paciente_telefono: cita.paciente_telefono,
-    paciente_email: cita.paciente_email ?? "",
     inicio: toDateTimeLocal(cita.inicio),
     modalidad: cita.modalidad,
-    servicio: cita.servicio,
     estado: cita.estado,
     pago_estado: cita.pago_estado,
     enlace_videollamada: cita.enlace_videollamada ?? "",
@@ -416,10 +414,8 @@ function AppointmentCard({
     setDraft({
       paciente_nombre: cita.paciente_nombre,
       paciente_telefono: cita.paciente_telefono,
-      paciente_email: cita.paciente_email ?? "",
       inicio: toDateTimeLocal(cita.inicio),
       modalidad: cita.modalidad,
-      servicio: cita.servicio,
       estado: cita.estado,
       pago_estado: cita.pago_estado,
       enlace_videollamada: cita.enlace_videollamada ?? "",
@@ -452,12 +448,10 @@ function AppointmentCard({
     const ok = await onUpdate(cita.id, {
       paciente_nombre: draft.paciente_nombre.trim(),
       paciente_telefono: draft.paciente_telefono.trim(),
-      paciente_email: draft.paciente_email.trim() || null,
       inicio: newStart,
       fin: newEnd,
       disponibilidad_id: timeChanged ? null : cita.disponibilidad_id,
       modalidad: draft.modalidad,
-      servicio: draft.servicio,
       estado: draft.estado,
       pago_estado: draft.pago_estado,
       enlace_videollamada: draft.enlace_videollamada.trim() || null,
@@ -487,7 +481,6 @@ function AppointmentCard({
             {formatShortDay(cita.inicio)} · {formatTime(cita.inicio)}
           </p>
           <h3 className="mt-1 font-serif text-xl text-brand-deep">{cita.paciente_nombre}</h3>
-          <p className="mt-1 text-sm text-brand-deep/65">{cita.servicio}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <StatusBadge status={cita.estado} />
@@ -502,7 +495,6 @@ function AppointmentCard({
               {cita.modalidad === "virtual" ? "Videollamada" : "Presencial"}
             </p>
             <p>{cita.paciente_telefono}</p>
-            {cita.paciente_email && <p className="sm:col-span-2">{cita.paciente_email}</p>}
             {cita.modalidad === "virtual" && cita.enlace_videollamada && (
               <a
                 href={cita.enlace_videollamada}
@@ -546,14 +538,6 @@ function AppointmentCard({
                 onChange={(e) => setDraft({ ...draft, paciente_telefono: e.target.value })}
               />
             </EditField>
-            <EditField label="Correo">
-              <input
-                type="email"
-                className="panel-input"
-                value={draft.paciente_email}
-                onChange={(e) => setDraft({ ...draft, paciente_email: e.target.value })}
-              />
-            </EditField>
             <EditField label="Fecha y hora">
               <input
                 type="datetime-local"
@@ -571,13 +555,6 @@ function AppointmentCard({
                 <option value="presencial">Presencial</option>
                 <option value="virtual">Virtual</option>
               </select>
-            </EditField>
-            <EditField label="Servicio">
-              <input
-                className="panel-input"
-                value={draft.servicio}
-                onChange={(e) => setDraft({ ...draft, servicio: e.target.value })}
-              />
             </EditField>
             <EditField label="Estado">
               <select

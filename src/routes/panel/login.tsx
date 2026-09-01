@@ -14,8 +14,10 @@ export const Route = createFileRoute("/panel/login")({
 });
 
 function PanelLogin() {
+  const [mode, setMode] = useState<"login" | "activate">("login");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -27,10 +29,39 @@ function PanelLogin() {
     event.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
     const values = new FormData(event.currentTarget);
+    const email = String(values.get("email") ?? "").trim();
+    const password = String(values.get("password") ?? "");
+
+    if (mode === "activate") {
+      const { data, error: activationError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      setLoading(false);
+
+      if (activationError) {
+        setError("No pude activar la cuenta. Comprueba que usas el correo invitado.");
+        return;
+      }
+
+      if (data.session) {
+        window.location.assign("/panel/");
+        return;
+      }
+
+      setSuccess(
+        "Cuenta creada. Revisa tu correo para confirmar el acceso y después inicia sesión.",
+      );
+      setMode("login");
+      event.currentTarget.reset();
+      return;
+    }
+
     const { error: loginError } = await supabase.auth.signInWithPassword({
-      email: String(values.get("email") ?? "").trim(),
-      password: String(values.get("password") ?? ""),
+      email,
+      password,
     });
 
     if (loginError) {
@@ -51,9 +82,13 @@ function PanelLogin() {
         <p className="mt-7 text-[10px] font-bold uppercase tracking-[.2em] text-brand-deep/45">
           Panel privado
         </p>
-        <h1 className="mt-2 font-serif text-3xl text-brand-deep">Terapia con Violeta</h1>
+        <h1 className="mt-2 font-serif text-3xl text-brand-deep">
+          {mode === "login" ? "Terapia con Violeta" : "Activa tu acceso"}
+        </h1>
         <p className="mt-3 text-sm leading-relaxed text-brand-deep/65">
-          Inicia sesión para administrar citas, horarios y confirmaciones.
+          {mode === "login"
+            ? "Inicia sesión para administrar citas, horarios y confirmaciones."
+            : "Usa el correo invitado y crea una contraseña de al menos ocho caracteres."}
         </p>
 
         <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
@@ -74,10 +109,14 @@ function PanelLogin() {
               required
               name="password"
               type="password"
+              minLength={8}
               autoComplete="current-password"
               className="panel-input mt-2"
             />
           </label>
+          {success && (
+            <p className="rounded-xl bg-emerald-100 p-3 text-sm text-emerald-800">{success}</p>
+          )}
           {error && (
             <p role="alert" className="rounded-xl bg-destructive/10 p-3 text-sm text-destructive">
               {error}
@@ -91,11 +130,27 @@ function PanelLogin() {
               <>
                 <Loader2 className="size-4 animate-spin" /> Entrando…
               </>
-            ) : (
+            ) : mode === "login" ? (
               "Entrar al panel"
+            ) : (
+              "Crear mi contraseña"
             )}
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={() => {
+            setMode(mode === "login" ? "activate" : "login");
+            setError("");
+            setSuccess("");
+          }}
+          className="mt-5 w-full text-center text-xs font-semibold text-brand-deep underline underline-offset-4"
+        >
+          {mode === "login"
+            ? "Es mi primera vez: activar acceso"
+            : "Ya tengo cuenta: iniciar sesión"}
+        </button>
 
         <a
           href="/"

@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CalendarDays, Check, Clock3, Loader2, Monitor, MapPin } from "lucide-react";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { es } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
 import { PageHero } from "@/components/PageHero";
 import { SiteLayout, WHATSAPP_URL } from "@/components/SiteLayout";
 import { supabase } from "@/lib/supabase";
 import {
+  TERAPIA_TIME_ZONE,
   formatDay,
   formatTime,
   localDateKey,
@@ -54,24 +57,40 @@ const faqs = [
 function Contacto() {
   const [modalidad, setModalidad] = useState<Modalidad>("presencial");
   const [slots, setSlots] = useState<HorarioDisponible[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedSlotId, setSelectedSlotId] = useState("");
   const [loadingSlots, setLoadingSlots] = useState(true);
+  const [slotsError, setSlotsError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [sentSlot, setSentSlot] = useState<HorarioDisponible | null>(null);
 
+  const calendarStart = useMemo(() => mexicoCalendarDate(new Date()), []);
+  const calendarEnd = useMemo(
+    () =>
+      new Date(
+        calendarStart.getFullYear(),
+        calendarStart.getMonth(),
+        calendarStart.getDate() + 59,
+        12,
+      ),
+    [calendarStart],
+  );
+
   useEffect(() => {
     let active = true;
     setLoadingSlots(true);
+    setSelectedDate(undefined);
     setSelectedSlotId("");
     setError("");
+    setSlotsError("");
 
     supabase
       .rpc("horarios_disponibles_terapia", { p_modalidad: modalidad })
       .then(({ data, error: queryError }) => {
         if (!active) return;
         if (queryError) {
-          setError(
+          setSlotsError(
             "No pude consultar los horarios. Puedes intentar de nuevo o escribir por WhatsApp.",
           );
           setSlots([]);
@@ -93,6 +112,34 @@ function Contacto() {
       return groups;
     }, {});
   }, [slots]);
+
+  const calendarDays = useMemo(
+    () => daysBetween(calendarStart, calendarEnd),
+    [calendarEnd, calendarStart],
+  );
+
+  const availabilityDates = useMemo(() => {
+    const many: Date[] = [];
+    const few: Date[] = [];
+    const none: Date[] = [];
+
+    calendarDays.forEach((date) => {
+      const count = slotsByDay[calendarDateKey(date)]?.length ?? 0;
+      if (count > 4) many.push(date);
+      else if (count > 0) few.push(date);
+      else none.push(date);
+    });
+
+    return { many, few, none };
+  }, [calendarDays, slotsByDay]);
+
+  const selectedDaySlots = selectedDate ? (slotsByDay[calendarDateKey(selectedDate)] ?? []) : [];
+
+  function selectDate(date: Date | undefined) {
+    setSelectedDate(date);
+    setSelectedSlotId("");
+    setError("");
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -216,32 +263,88 @@ function Contacto() {
                       <div className="flex items-center gap-2 py-8 text-sm text-brand-deep/60">
                         <Loader2 className="size-4 animate-spin" /> Consultando horarios…
                       </div>
-                    ) : slots.length === 0 ? (
-                      <div className="rounded-2xl bg-brand-soft/35 p-5 text-sm leading-relaxed text-brand-deep/70">
-                        Todavía no hay horarios publicados para esta modalidad. Puedes escribir por
-                        WhatsApp para consultar una fecha.
+                    ) : slotsError ? (
+                      <div className="rounded-2xl bg-destructive/10 p-5 text-sm leading-relaxed text-destructive">
+                        {slotsError}
                       </div>
                     ) : (
-                      <div className="max-h-80 space-y-5 overflow-y-auto pr-1">
-                        {Object.entries(slotsByDay).map(([day, daySlots]) => (
-                          <div key={day}>
-                            <p className="flex items-center gap-2 text-sm font-semibold text-brand-deep">
-                              <CalendarDays className="size-4" /> {formatDay(daySlots[0].inicio)}
-                            </p>
-                            <div className="mt-2 flex flex-wrap gap-2">
-                              {daySlots.map((slot) => (
-                                <button
-                                  key={slot.disponibilidad_id}
-                                  type="button"
-                                  onClick={() => setSelectedSlotId(slot.disponibilidad_id)}
-                                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${selectedSlotId === slot.disponibilidad_id ? "border-brand-deep bg-brand-deep text-white" : "border-brand-deep/15 bg-background text-brand-deep hover:border-brand-deep/40"}`}
-                                >
-                                  {formatTime(slot.inicio)}
-                                </button>
-                              ))}
-                            </div>
+                      <div>
+                        <div className="mb-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-brand-deep/70">
+                          <Legend color="bg-emerald-500" label="5 o más espacios" />
+                          <Legend color="bg-amber-400" label="1 a 4 espacios" />
+                          <Legend color="bg-rose-400" label="Sin espacios" />
+                        </div>
+
+                        <div className="grid gap-4 lg:grid-cols-[minmax(19rem,1.15fr)_minmax(12rem,.85fr)]">
+                          <div className="overflow-hidden rounded-2xl border border-brand-deep/10 bg-background p-1">
+                            <Calendar
+                              mode="single"
+                              locale={es}
+                              selected={selectedDate}
+                              onSelect={selectDate}
+                              defaultMonth={calendarStart}
+                              startMonth={calendarStart}
+                              endMonth={calendarEnd}
+                              disabled={[{ before: calendarStart }, { after: calendarEnd }]}
+                              showOutsideDays={false}
+                              modifiers={availabilityDates}
+                              modifiersClassNames={{
+                                many: "bg-emerald-100 text-emerald-900 hover:bg-emerald-200",
+                                few: "bg-amber-100 text-amber-900 hover:bg-amber-200",
+                                none: "bg-rose-100 text-rose-800 hover:bg-rose-200",
+                              }}
+                              className="w-full [--cell-size:2.35rem] sm:[--cell-size:2.5rem]"
+                              classNames={{ root: "w-full" }}
+                            />
                           </div>
-                        ))}
+
+                          <div className="rounded-2xl border border-brand-deep/10 bg-brand-soft/20 p-5">
+                            {selectedDate ? (
+                              <>
+                                <p className="flex items-start gap-2 font-semibold text-brand-deep">
+                                  <CalendarDays className="mt-0.5 size-4 shrink-0" />
+                                  {formatCalendarDay(selectedDate)}
+                                </p>
+                                {selectedDaySlots.length ? (
+                                  <>
+                                    <p className="mt-2 text-xs text-brand-deep/60">
+                                      {selectedDaySlots.length === 1
+                                        ? "1 horario disponible"
+                                        : `${selectedDaySlots.length} horarios disponibles`}
+                                    </p>
+                                    <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-1">
+                                      {selectedDaySlots.map((slot) => (
+                                        <button
+                                          key={slot.disponibilidad_id}
+                                          type="button"
+                                          onClick={() => setSelectedSlotId(slot.disponibilidad_id)}
+                                          className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors ${selectedSlotId === slot.disponibilidad_id ? "border-brand-deep bg-brand-deep text-white" : "border-brand-deep/15 bg-white text-brand-deep hover:border-brand-deep/40"}`}
+                                        >
+                                          {formatTime(slot.inicio)}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <p className="mt-4 text-sm leading-relaxed text-brand-deep/65">
+                                    No hay horarios disponibles este día. Elige una fecha amarilla o
+                                    verde.
+                                  </p>
+                                )}
+                              </>
+                            ) : (
+                              <div className="flex min-h-28 flex-col justify-center text-center lg:min-h-full">
+                                <CalendarDays className="mx-auto size-6 text-brand-deep/35" />
+                                <p className="mt-3 text-sm font-semibold text-brand-deep">
+                                  Elige una fecha
+                                </p>
+                                <p className="mt-1 text-xs leading-relaxed text-brand-deep/60">
+                                  Después podrás seleccionar la hora disponible.
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -381,6 +484,53 @@ function Step({ number, text }: { number: string; text: string }) {
       <span className="pt-1">{text}</span>
     </li>
   );
+}
+
+function Legend({ color, label }: { color: string; label: string }) {
+  return (
+    <span className="flex items-center gap-2">
+      <span className={`size-2.5 rounded-full ${color}`} aria-hidden="true" />
+      {label}
+    </span>
+  );
+}
+
+function mexicoCalendarDate(value: Date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TERAPIA_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(value);
+  const map = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return new Date(Number(map.year), Number(map.month) - 1, Number(map.day), 12);
+}
+
+function calendarDateKey(value: Date) {
+  const year = value.getFullYear();
+  const month = String(value.getMonth() + 1).padStart(2, "0");
+  const day = String(value.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function daysBetween(start: Date, end: Date) {
+  const dates: Date[] = [];
+  const current = new Date(start);
+  while (current <= end) {
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+  return dates;
+}
+
+function formatCalendarDay(value: Date) {
+  const formatted = new Intl.DateTimeFormat("es-MX", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(value);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
 function SectionLabel({ number, children }: { number: string; children: ReactNode }) {

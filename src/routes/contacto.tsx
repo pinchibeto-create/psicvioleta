@@ -52,7 +52,7 @@ const faqs = [
 ];
 
 function Contacto() {
-  const [modalidad, setModalidad] = useState<Modalidad>("virtual");
+  const [modalidad, setModalidad] = useState<Modalidad>("presencial");
   const [slots, setSlots] = useState<HorarioDisponible[]>([]);
   const [selectedSlotId, setSelectedSlotId] = useState("");
   const [loadingSlots, setLoadingSlots] = useState(true);
@@ -112,9 +112,9 @@ function Contacto() {
       p_disponibilidad_id: slot.disponibilidad_id,
       p_nombre: String(values.get("nombre") ?? ""),
       p_telefono: String(values.get("telefono") ?? ""),
-      p_email: String(values.get("email") ?? "") || null,
+      p_email: null,
       p_modalidad: modalidad,
-      p_servicio: String(values.get("servicio") ?? ""),
+      p_servicio: "Psicoterapia individual",
       p_motivo: String(values.get("motivo") ?? "") || null,
     });
 
@@ -191,20 +191,20 @@ function Contacto() {
               <form className="space-y-8" onSubmit={handleSubmit}>
                 <div>
                   <SectionLabel number="1">¿Cómo prefieres tu sesión?</SectionLabel>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    <ModeButton
-                      active={modalidad === "virtual"}
-                      onClick={() => setModalidad("virtual")}
-                      icon={<Monitor className="size-5" />}
-                      title="Virtual"
-                      detail="Por videollamada"
-                    />
+                  <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
                     <ModeButton
                       active={modalidad === "presencial"}
                       onClick={() => setModalidad("presencial")}
                       icon={<MapPin className="size-5" />}
                       title="Presencial"
                       detail="Consultorio en Cholula"
+                    />
+                    <ModeButton
+                      active={modalidad === "virtual"}
+                      onClick={() => setModalidad("virtual")}
+                      icon={<Monitor className="size-5" />}
+                      title="Virtual"
+                      detail="Por videollamada"
                     />
                   </div>
                 </div>
@@ -270,26 +270,6 @@ function Contacto() {
                         className="form-input"
                         placeholder="222 000 0000"
                       />
-                    </Field>
-                    <Field label="Correo (opcional)" full>
-                      <input
-                        name="email"
-                        type="email"
-                        maxLength={160}
-                        className="form-input"
-                        placeholder="hola@ejemplo.com"
-                      />
-                    </Field>
-                    <Field label="Servicio de interés" full>
-                      <select required name="servicio" className="form-input" defaultValue="">
-                        <option value="" disabled>
-                          Selecciona…
-                        </option>
-                        <option>Psicoterapia individual</option>
-                        <option>Evaluación neuropsicológica</option>
-                        <option>Taller / institucional</option>
-                        <option>Otro / aún no estoy segura(o)</option>
-                      </select>
                     </Field>
                     <Field label="Mensaje breve (opcional)" full>
                       <textarea
@@ -431,12 +411,12 @@ function ModeButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition-colors ${active ? "border-brand-deep bg-brand-soft/45" : "border-brand-deep/10 hover:border-brand-deep/30"}`}
+      className={`flex min-w-0 flex-col items-start gap-2 rounded-2xl border p-3 text-left transition-colors sm:flex-row sm:items-center sm:gap-3 sm:p-4 ${active ? "border-brand-deep bg-brand-soft/45" : "border-brand-deep/10 hover:border-brand-deep/30"}`}
     >
-      <span className="text-brand-deep">{icon}</span>
-      <span>
+      <span className="shrink-0 text-brand-deep">{icon}</span>
+      <span className="min-w-0">
         <strong className="block text-sm text-brand-deep">{title}</strong>
-        <span className="text-xs text-brand-deep/60">{detail}</span>
+        <span className="block text-xs leading-snug text-brand-deep/60">{detail}</span>
       </span>
     </button>
   );

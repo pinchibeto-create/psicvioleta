@@ -10,7 +10,16 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import portrait from "../assets/violeta-portrait.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const SITE_URL = "https://terapiaconvioleta.com";
+const SOCIAL_IMAGE = `${SITE_URL}${portrait}`;
+const SAME_AS = [
+  "https://www.instagram.com/psic.violetaguillen/",
+  "https://www.doctoralia.com.mx/violeta-guillen/psicologo/san-andres-cholula",
+  "https://www.psico.mx/psicologos/bertha-violeta-guillen-lopez",
+];
 
 function NotFoundComponent() {
   return (
@@ -77,23 +86,40 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
+      { title: "Psicóloga en Cholula | Psicoterapia y arteterapia — Violeta Guillén" },
       {
         name: "description",
         content:
-          "Psicoterapia integrativa y arteterapia en San Andrés Cholula y en línea. Acompañamiento para ansiedad, autoestima, neurodivergencias e identidad.",
+          "Psicóloga en San Andrés Cholula y terapia online. Psicoterapia integrativa, arteterapia y enfoque neuroafirmativo para ansiedad, autoestima, neurodivergencias, duelo e identidad.",
       },
       { name: "author", content: "Psic. Violeta Guillén" },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:site_name", content: "Psic. Violeta Guillén" },
+      { property: "og:locale", content: "es_MX" },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      {
+        property: "og:title",
+        content: "Psicóloga en Cholula | Psicoterapia y arteterapia — Violeta Guillén",
+      },
+      {
+        property: "og:description",
+        content:
+          "Psicoterapia presencial en San Andrés Cholula y online, con enfoque integrativo, creativo y neuroafirmativo.",
+      },
+      { property: "og:image", content: SOCIAL_IMAGE },
+      { property: "og:image:alt", content: "Psic. Violeta Guillén en su espacio de consulta" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
-      { name: "twitter:title", content: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
-      { name: "description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
-      { property: "og:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
-      { name: "twitter:description", content: "Violeta's Healing Space offers art therapy, neurodivergent-affirming psychotherapy, and psychoeducational workshops." },
-      
-
+      {
+        name: "twitter:title",
+        content: "Psicóloga en Cholula | Psicoterapia y arteterapia — Violeta Guillén",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Psicoterapia presencial en San Andrés Cholula y online para ansiedad, neurodivergencias, autoestima e identidad.",
+      },
+      { name: "twitter:image", content: SOCIAL_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -102,6 +128,98 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_URL}/#website`,
+              url: SITE_URL,
+              name: "Psic. Violeta Guillén",
+              description:
+                "Psicoterapia, arteterapia y acompañamiento neuroafirmativo en San Andrés Cholula y en línea.",
+              inLanguage: "es-MX",
+              publisher: { "@id": `${SITE_URL}/#practice` },
+            },
+            {
+              "@type": "ProfessionalService",
+              "@id": `${SITE_URL}/#practice`,
+              name: "Psic. Violeta Guillén",
+              url: SITE_URL,
+              image: SOCIAL_IMAGE,
+              description:
+                "Psicoterapia integrativa, arteterapia, evaluaciones neuropsicológicas y talleres en San Andrés Cholula y en línea.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "San Andrés Cholula",
+                addressRegion: "Puebla",
+                addressCountry: "MX",
+              },
+              areaServed: [
+                { "@type": "City", name: "San Andrés Cholula" },
+                { "@type": "AdministrativeArea", name: "Puebla" },
+                { "@type": "Country", name: "México" },
+              ],
+              sameAs: SAME_AS,
+              employee: { "@id": `${SITE_URL}/#violeta` },
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Servicios psicológicos",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Psicoterapia individual",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Evaluaciones neuropsicológicas",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Talleres psicoeducativos",
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              "@type": "Person",
+              "@id": `${SITE_URL}/#violeta`,
+              name: "Violeta Guillén",
+              url: `${SITE_URL}/sobre-mi`,
+              image: SOCIAL_IMAGE,
+              jobTitle: "Psicóloga",
+              worksFor: { "@id": `${SITE_URL}/#practice` },
+              identifier: {
+                "@type": "PropertyValue",
+                propertyID: "Cédula profesional",
+                value: "15253825",
+              },
+              sameAs: SAME_AS,
+              knowsAbout: [
+                "Psicoterapia integrativa",
+                "Arteterapia",
+                "Ansiedad",
+                "Autoestima",
+                "Neurodivergencias",
+                "Identidad",
+              ],
+            },
+          ],
+        }),
       },
     ],
   }),
@@ -113,7 +231,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es-MX">
       <head>
         <HeadContent />
       </head>

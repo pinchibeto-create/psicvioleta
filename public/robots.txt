@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /privacidad
+
+Sitemap: https://terapiaconvioleta.com/sitemap.xml

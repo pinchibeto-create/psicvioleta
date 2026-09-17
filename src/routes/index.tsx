@@ -3,24 +3,32 @@ import { SiteLayout, WHATSAPP_URL } from "@/components/SiteLayout";
 import portrait from "@/assets/violeta-portrait.jpg";
 import artMaterials from "@/assets/art-materials.jpg";
 
+const SITE_URL = "https://terapiaconvioleta.com";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Psic. Violeta Guillén — Psicoterapia y arteterapia en Cholula" },
+      {
+        title:
+          "Psicóloga en Cholula | Ansiedad, neurodivergencias y arteterapia",
+      },
       {
         name: "description",
         content:
-          "Psicoterapia en línea y presencial en Cholula. Acompaño procesos de ansiedad, autoestima, neurodivergencias, duelos e identidad desde un enfoque integrativo.",
+          "Psicóloga en San Andrés Cholula y terapia online. Psicoterapia integrativa y arteterapia para ansiedad, autoestima, neurodivergencias, duelo e identidad.",
       },
-      { property: "og:title", content: "Psic. Violeta Guillén" },
+      {
+        property: "og:title",
+        content: "Psicóloga en Cholula | Psic. Violeta Guillén",
+      },
       {
         property: "og:description",
         content:
-          "Psicoterapia integrativa y arteterapia en Cholula y en línea.",
+          "Psicoterapia presencial en San Andrés Cholula y online para ansiedad, neurodivergencias, autoestima e identidad.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE_URL }],
   }),
   component: Index,
 });
@@ -35,6 +43,25 @@ const temas = [
   "Autoconocimiento",
 ];
 
+const caminos = [
+  {
+    to: "/terapia-ansiedad-cholula" as const,
+    eyebrow: "Ansiedad",
+    title: "Cuando tu mente no descansa",
+    description:
+      "Si sobrepiensas, anticipas escenarios, sientes el cuerpo en alerta o te cuesta poner límites sin culpa, podemos explorar lo que está sosteniendo esa ansiedad.",
+    cta: "Conocer terapia para ansiedad",
+  },
+  {
+    to: "/terapia-neurodivergencias-cholula" as const,
+    eyebrow: "Neurodivergencias",
+    title: "Cuando adaptarte todo el tiempo agota",
+    description:
+      "Si sospechas TDAH o autismo, vives sobrecarga, enmascaramiento o te cuesta comprender tus necesidades, el proceso puede ayudarte a mirarte sin patologizar tu experiencia.",
+    cta: "Conocer el enfoque neuroafirmativo",
+  },
+];
+
 function Index() {
   return (
     <SiteLayout>
@@ -43,17 +70,18 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
           <div className="space-y-8">
             <span className="inline-block rounded-full bg-brand-soft px-4 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-brand-deep">
-              Psicoterapia & Arteterapia
+              Psicoterapia & Arteterapia · San Andrés Cholula
             </span>
             <h1 className="font-serif text-5xl leading-[1.05] text-brand-deep md:text-7xl">
-              Psicoterapia para{" "}
-              <span className="italic">conocerte</span> y transformar la
-              relación contigo.
+              Psicóloga en Cholula para{" "}
+              <span className="italic">conocerte</span> y transformar la relación
+              contigo.
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-brand-deep/80">
-              Un espacio sensible, creativo e inclusivo en Cholula y en línea.
-              Acompaño procesos de ansiedad, neurodivergencias, identidad y
-              autoconocimiento desde una mirada no capacitista.
+              Psicoterapia presencial en San Andrés Cholula y terapia online
+              para ansiedad, neurodivergencias, autoestima, identidad y
+              autoconocimiento, desde una mirada integrativa, creativa y no
+              capacitista.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -75,7 +103,7 @@ function Index() {
             <div className="absolute -bottom-8 -right-8 size-48 rounded-full bg-brand-accent/30 blur-3xl" />
             <img
               src={portrait}
-              alt="Retrato de Violeta Guillén en su estudio"
+              alt="Psicóloga Violeta Guillén en su espacio de consulta en Cholula"
               width={800}
               height={1000}
               className="relative aspect-[4/5] w-full rounded-3xl object-cover shadow-xl ring-1 ring-brand-deep/5"
@@ -104,8 +132,48 @@ function Index() {
         </div>
       </div>
 
-      {/* Approach */}
+      {/* High-intent paths */}
       <section className="px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-sage">
+              Quizá llegaste buscando esto
+            </span>
+            <h2 className="mt-3 font-serif text-4xl text-brand-deep">
+              Empezar por lo que hoy te está pesando
+            </h2>
+            <p className="mt-5 leading-relaxed text-brand-deep/70">
+              No necesitas tener un diagnóstico ni saber exactamente cómo nombrar
+              lo que te pasa. Podemos empezar por tu experiencia cotidiana.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            {caminos.map((c) => (
+              <Link
+                key={c.to}
+                to={c.to}
+                className="group rounded-3xl border border-brand-deep/10 bg-white p-8 transition-all hover:-translate-y-1 hover:border-brand-accent hover:shadow-lg"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-sage">
+                  {c.eyebrow}
+                </span>
+                <h3 className="mt-4 font-serif text-2xl text-brand-deep">
+                  {c.title}
+                </h3>
+                <p className="mt-4 leading-relaxed text-brand-deep/70">
+                  {c.description}
+                </p>
+                <span className="mt-6 inline-block text-sm font-semibold text-brand-deep transition-colors group-hover:text-brand-sage">
+                  {c.cta} →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Approach */}
+      <section className="bg-brand-soft/20 px-6 py-24">
         <div className="mx-auto max-w-4xl space-y-12 text-center">
           <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-sage">
             Mi enfoque
@@ -161,7 +229,7 @@ function Index() {
                 key={t}
                 className="rounded-2xl bg-background p-6 ring-1 ring-brand-deep/5 transition-all hover:-translate-y-1 hover:ring-brand-accent"
               >
-                <span className="font-serif text-base leading-snug text-brand-deep break-words hyphens-auto sm:text-lg">
+                <span className="break-words font-serif text-base leading-snug text-brand-deep hyphens-auto sm:text-lg">
                   {t}
                 </span>
               </li>
@@ -246,7 +314,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
           <img
             src={artMaterials}
-            alt="Materiales de arteterapia"
+            alt="Materiales utilizados como apoyo creativo en sesiones de arteterapia"
             width={1200}
             height={900}
             loading="lazy"

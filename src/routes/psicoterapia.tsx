@@ -2,24 +2,29 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/PageHero";
 
+const SITE_URL = "https://terapiaconvioleta.com";
+
 export const Route = createFileRoute("/psicoterapia")({
   head: () => ({
     meta: [
-      { title: "Psicoterapia individual — Cholula y en línea" },
+      { title: "Psicoterapia en Cholula y online | Psic. Violeta Guillén" },
       {
         name: "description",
         content:
-          "Psicoterapia individual en Cholula y en línea para ansiedad, autoestima, duelos, neurodivergencias e identidad.",
+          "Psicoterapia en San Andrés Cholula y online para ansiedad, autoestima, duelo, identidad y neurodivergencias, desde un enfoque integrativo y neuroafirmativo.",
       },
-      { property: "og:title", content: "Psicoterapia individual" },
+      {
+        property: "og:title",
+        content: "Psicoterapia en Cholula y online | Psic. Violeta Guillén",
+      },
       {
         property: "og:description",
         content:
-          "Acompañamiento psicoterapéutico individual desde un enfoque integrativo.",
+          "Acompañamiento psicológico para ansiedad, autoestima, duelo, identidad y neurodivergencias, presencial en Cholula y online.",
       },
-      { property: "og:url", content: "/psicoterapia" },
+      { property: "og:url", content: `${SITE_URL}/psicoterapia` },
     ],
-    links: [{ rel: "canonical", href: "/psicoterapia" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/psicoterapia` }],
   }),
   component: Psicoterapia,
 });
@@ -28,9 +33,13 @@ function Psicoterapia() {
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="Psicoterapia individual"
-        title={<>Un espacio para <em className="italic">escucharte</em>.</>}
-        intro="Acompañamiento psicológico continuo en línea y presencial en Cholula. Trabajamos a tu ritmo, en un proceso colaborativo y respetuoso."
+        eyebrow="Psicoterapia individual · Cholula y online"
+        title={
+          <>
+            Psicoterapia en Cholula para <em className="italic">escucharte</em>.
+          </>
+        }
+        intro="Acompañamiento psicológico para ansiedad, autoestima, duelos, identidad y neurodivergencias. Trabajamos a tu ritmo, de forma presencial en San Andrés Cholula o por videollamada."
       >
         <Link
           to="/contacto"
@@ -54,10 +63,10 @@ function Psicoterapia() {
             </p>
             <ul className="space-y-2 text-brand-deep/80">
               {[
-                "Ansiedad y estrés crónico",
+                "Ansiedad, estrés y sobrepensamiento",
                 "Autoestima e imagen corporal",
                 "Neurodivergencias",
-                "Duelos y mudanzas vitales",
+                "Duelos y transiciones vitales",
                 "Identidad y transiciones de género",
                 "Heridas de la infancia",
               ].map((t) => (
@@ -101,6 +110,45 @@ function Psicoterapia() {
             adaptadas a tu experiencia y un espacio donde puedas habitarte con
             más libertad.
           </p>
+        </div>
+      </section>
+
+      <section className="bg-brand-soft/30 px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-brand-sage">
+              Explora según lo que estás viviendo
+            </span>
+            <h2 className="mt-3 font-serif text-3xl text-brand-deep">
+              Dos motivos frecuentes para empezar terapia
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <Link
+              to="/terapia-ansiedad-cholula"
+              className="rounded-3xl bg-white p-7 ring-1 ring-brand-deep/5 transition-all hover:-translate-y-1 hover:ring-brand-accent"
+            >
+              <h3 className="font-serif text-xl text-brand-deep">
+                Ansiedad y sobrepensamiento
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-brand-deep/70">
+                Conoce cómo puede acompañarse la ansiedad cuando la mente no
+                descansa o el cuerpo permanece en alerta.
+              </p>
+            </Link>
+            <Link
+              to="/terapia-neurodivergencias-cholula"
+              className="rounded-3xl bg-white p-7 ring-1 ring-brand-deep/5 transition-all hover:-translate-y-1 hover:ring-brand-accent"
+            >
+              <h3 className="font-serif text-xl text-brand-deep">
+                Neurodivergencias y enmascaramiento
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-brand-deep/70">
+                Conoce el enfoque neuroafirmativo para explorar necesidades,
+                límites, identidad y formas propias de funcionar.
+              </p>
+            </Link>
+          </div>
         </div>
       </section>
     </SiteLayout>

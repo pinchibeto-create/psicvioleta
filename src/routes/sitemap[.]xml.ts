@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "";
+const BASE_URL = "https://terapiaconvioleta.com";
 
 interface SitemapEntry {
   path: string;
@@ -15,10 +15,12 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/sobre-mi", changefreq: "monthly", priority: "0.8" },
           { path: "/psicoterapia", changefreq: "monthly", priority: "0.9" },
+          { path: "/terapia-ansiedad-cholula", changefreq: "monthly", priority: "0.9" },
+          { path: "/terapia-neurodivergencias-cholula", changefreq: "monthly", priority: "0.9" },
           { path: "/evaluaciones-neuropsicologicas", changefreq: "monthly", priority: "0.8" },
-          { path: "/talleres", changefreq: "monthly", priority: "0.8" },
+          { path: "/sobre-mi", changefreq: "monthly", priority: "0.8" },
+          { path: "/talleres", changefreq: "monthly", priority: "0.7" },
           { path: "/recursos", changefreq: "weekly", priority: "0.6" },
           { path: "/contacto", changefreq: "monthly", priority: "0.9" },
         ];
@@ -44,7 +46,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         return new Response(xml, {
           headers: {
-            "Content-Type": "application/xml",
+            "Content-Type": "application/xml; charset=utf-8",
             "Cache-Control": "public, max-age=3600",
           },
         });

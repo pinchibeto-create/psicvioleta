@@ -2,28 +2,38 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { PageHero } from "@/components/PageHero";
 
+const SITE_URL = "https://terapiaconvioleta.com";
+
 export const Route = createFileRoute("/evaluaciones-neuropsicologicas")({
   head: () => ({
     meta: [
-      { title: "Evaluaciones neuropsicológicas — Psic. Violeta Guillén" },
+      {
+        title: "Evaluación neuropsicológica en Cholula | TDAH y autismo",
+      },
       {
         name: "description",
         content:
-          "Procesos de evaluación neuropsicológica para comprender tu funcionamiento cognitivo y emocional.",
+          "Evaluación neuropsicológica en San Andrés Cholula para explorar perfiles cognitivos y apoyar hipótesis sobre TDAH, autismo y otras condiciones, con enfoque neuroafirmativo.",
       },
       {
         property: "og:title",
-        content: "Evaluaciones neuropsicológicas",
+        content: "Evaluación neuropsicológica en Cholula | Psic. Violeta Guillén",
       },
       {
         property: "og:description",
         content:
-          "Evaluación neuropsicológica con enfoque humano y neuroafirmativo.",
+          "Proceso de evaluación para comprender funcionamiento cognitivo, atencional y emocional desde un enfoque ético y neuroafirmativo.",
       },
-      { property: "og:url", content: "/evaluaciones-neuropsicologicas" },
+      {
+        property: "og:url",
+        content: `${SITE_URL}/evaluaciones-neuropsicologicas`,
+      },
     ],
     links: [
-      { rel: "canonical", href: "/evaluaciones-neuropsicologicas" },
+      {
+        rel: "canonical",
+        href: `${SITE_URL}/evaluaciones-neuropsicologicas`,
+      },
     ],
   }),
   component: Evaluaciones,
@@ -33,14 +43,14 @@ function Evaluaciones() {
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="Evaluaciones neuropsicológicas"
+        eyebrow="Evaluación neuropsicológica · San Andrés Cholula"
         title={
           <>
-            Comprender cómo{" "}
+            Evaluación neuropsicológica en Cholula para comprender cómo{" "}
             <em className="italic">funciona</em> tu mente.
           </>
         }
-        intro="Procesos estructurados de evaluación para tener claridad sobre tu funcionamiento cognitivo, emocional y atencional, desde un enfoque ético y neuroafirmativo."
+        intro="Un proceso estructurado para explorar tu funcionamiento cognitivo, emocional y atencional. Puede aportar información útil ante dudas sobre TDAH, autismo u otros perfiles, desde un enfoque ético y neuroafirmativo."
       >
         <Link
           to="/contacto"
@@ -59,7 +69,7 @@ function Evaluaciones() {
             },
             {
               t: "Diagnóstico diferencial",
-              d: "Apoyo en hipótesis sobre TDAH, espectro autista u otras condiciones.",
+              d: "Apoyo en hipótesis sobre TDAH, espectro autista u otras condiciones, según el alcance acordado.",
             },
             {
               t: "Informe clínico",
@@ -99,9 +109,28 @@ function Evaluaciones() {
             ))}
           </ul>
           <p className="mt-8 text-sm italic text-brand-deep/60">
-            El alcance, edades atendidas y pruebas aplicadas se confirman en una
-            llamada inicial sin compromiso.
+            El alcance, edades atendidas, objetivos de la evaluación y pruebas
+            aplicadas se confirman en una llamada inicial sin compromiso.
           </p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-serif text-2xl text-brand-deep">
+            ¿Buscas acompañamiento terapéutico más que una evaluación?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-brand-deep/70">
+            Si tu objetivo es comprender tus necesidades, límites, sobrecarga o
+            enmascaramiento dentro de un proceso psicoterapéutico, conoce el
+            enfoque neuroafirmativo.
+          </p>
+          <Link
+            to="/terapia-neurodivergencias-cholula"
+            className="mt-6 inline-block font-semibold text-brand-sage hover:text-brand-deep"
+          >
+            Ver terapia para neurodivergencias →
+          </Link>
         </div>
       </section>
     </SiteLayout>
